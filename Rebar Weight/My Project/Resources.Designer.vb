@@ -97,6 +97,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Byte[].
+        '''</summary>
+        Friend ReadOnly Property DS_DIGI() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("DS_DIGI", resourceCulture)
+                Return CType(obj,Byte())
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property gUpdate() As System.Drawing.Bitmap

@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ic.ico" />
+    <None Include="Resources\DS-DIGI.TTF" />
     <None Include="Resources\gUpdate.gif" />
   </ItemGroup>
   <ItemGroup>

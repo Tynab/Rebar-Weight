@@ -2,6 +2,7 @@
 Imports System.Math
 Imports System.Net
 Imports System.Windows.Forms.Keys
+Imports YANF.Script
 
 Public Class FrmUpdate
 #Region "Fields"
@@ -25,10 +26,10 @@ Public Class FrmUpdate
 #End Region
 
 #Region "Events"
-    ' Form shown
+    ' Shown frm
     Private Sub FrmUpdate_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         pnlProgressBar.Width = 1
-        FIFrm()
+        FadeIn()
         CrtDirAdv(FRNT_PATH)
         DelFileAdv(FILE_SETUP_ADR)
         tmrMain.StrtAdv()
@@ -43,19 +44,23 @@ Public Class FrmUpdate
         pnlProgressBar.Width = CInt(Ceiling(e.ProgressPercentage * Width / 100D))
     End Sub
 
-    ' Timer main
+    ' tmr main
     Private Sub TmrMain_Tick(sender As Object, e As EventArgs) Handles tmrMain.Tick
         If lblPercent.Text = "100%" Then
             tmrMain.StopAdv()
-            Start(FILE_SETUP_ADR)
-            FOFrm()
             Close()
         End If
     End Sub
 
-    ' Form closing
+    ' Closing frm
     Private Sub FrmUpdate_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        FadeOut()
         KillPrcs(My.Resources.app_name)
+    End Sub
+
+    ' Closed frm
+    Private Sub FrmUpdate_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Start(FILE_SETUP_ADR)
     End Sub
 #End Region
 End Class

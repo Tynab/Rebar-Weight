@@ -102,7 +102,6 @@ Partial Class FrmMain
         Me.lblRsltM.Name = "lblRsltM"
         Me.lblRsltM.Size = New System.Drawing.Size(244, 22)
         Me.lblRsltM.TabIndex = 0
-        Me.lblRsltM.Text = "m = 999"
         Me.lblRsltM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblRsltY
@@ -115,7 +114,6 @@ Partial Class FrmMain
         Me.lblRsltY.Name = "lblRsltY"
         Me.lblRsltY.Size = New System.Drawing.Size(244, 21)
         Me.lblRsltY.TabIndex = 0
-        Me.lblRsltY.Text = "Y = 999"
         Me.lblRsltY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblRsltL
@@ -128,7 +126,6 @@ Partial Class FrmMain
         Me.lblRsltL.Name = "lblRsltL"
         Me.lblRsltL.Size = New System.Drawing.Size(244, 21)
         Me.lblRsltL.TabIndex = 0
-        Me.lblRsltL.Text = "999 + 999 + 999 + 999 + 999"
         Me.lblRsltL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Panel6
@@ -153,7 +150,6 @@ Partial Class FrmMain
         Me.lblHaunchW.Name = "lblHaunchW"
         Me.lblHaunchW.Size = New System.Drawing.Size(80, 20)
         Me.lblHaunchW.TabIndex = 0
-        Me.lblHaunchW.Text = "W = 9999"
         Me.lblHaunchW.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblHaunchL
@@ -166,7 +162,6 @@ Partial Class FrmMain
         Me.lblHaunchL.Name = "lblHaunchL"
         Me.lblHaunchL.Size = New System.Drawing.Size(80, 20)
         Me.lblHaunchL.TabIndex = 0
-        Me.lblHaunchL.Text = "L = 9999"
         Me.lblHaunchL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'tgClose
@@ -232,8 +227,9 @@ Partial Class FrmMain
         'nudDeg
         '
         Me.nudDeg.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.nudDeg.Increment = New Decimal(New Integer() {5, 0, 0, 0})
         Me.nudDeg.Location = New System.Drawing.Point(40, 0)
-        Me.nudDeg.Maximum = New Decimal(New Integer() {180, 0, 0, 0})
+        Me.nudDeg.Maximum = New Decimal(New Integer() {80, 0, 0, 0})
         Me.nudDeg.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.nudDeg.Name = "nudDeg"
         Me.nudDeg.Size = New System.Drawing.Size(100, 20)
@@ -265,8 +261,9 @@ Partial Class FrmMain
         'nudH
         '
         Me.nudH.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.nudH.Increment = New Decimal(New Integer() {10, 0, 0, 0})
         Me.nudH.Location = New System.Drawing.Point(40, 0)
-        Me.nudH.Maximum = New Decimal(New Integer() {5500, 0, 0, 0})
+        Me.nudH.Maximum = New Decimal(New Integer() {2000, 0, 0, 0})
         Me.nudH.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.nudH.Name = "nudH"
         Me.nudH.Size = New System.Drawing.Size(100, 20)

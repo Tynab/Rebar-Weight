@@ -116,6 +116,9 @@ Partial Class FrmUpdate
         Me.lblCapacity.Text = "0 MB / 0 MB"
         Me.lblCapacity.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         '
+        'tmrMain
+        '
+        '
         'FrmUpdate
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None

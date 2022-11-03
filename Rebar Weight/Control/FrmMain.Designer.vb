@@ -310,6 +310,7 @@ Partial Class FrmMain
         'nudL
         '
         Me.nudL.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.nudL.Increment = New Decimal(New Integer() {10, 0, 0, 0})
         Me.nudL.Location = New System.Drawing.Point(20, 0)
         Me.nudL.Maximum = New Decimal(New Integer() {5500, 0, 0, 0})
         Me.nudL.Minimum = New Decimal(New Integer() {10, 0, 0, 0})

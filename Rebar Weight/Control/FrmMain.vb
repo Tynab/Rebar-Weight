@@ -1,10 +1,11 @@
-﻿Imports System.Drawing.Text
+﻿Imports System.AppDomain
+Imports System.Drawing.Text
+Imports System.IO.File
 Imports System.Windows.Forms.Application
+Imports System.Windows.Forms.Keys
+Imports YANF.Control
 Imports YANF.Script
 Imports YANF.Script.YANEvent
-Imports System.AppDomain
-Imports System.IO.File
-Imports YANF.Control
 
 Public Class FrmMain
 #Region "Fields"
@@ -17,6 +18,7 @@ Public Class FrmMain
 #Region "Events"
     ' Load frm
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ChkLic()
         ' event handle
         For Each pnl In GetAllObjs(GetType(Panel))
             AddHandler pnl.MouseDown, AddressOf MoveFrm_MouseDown
@@ -34,15 +36,15 @@ Public Class FrmMain
             AddHandler lbl.MouseUp, AddressOf MoveFrm_MouseUp
         Next
         For Each nud In GetAllObjs(GetType(NumericUpDown))
-            AddHandler nud.KeyPress, AddressOf Nud_KeyPress
+            AddHandler nud.KeyDown, AddressOf Ctrl_KeyDown
             AddHandler nud.Enter, AddressOf Nud_Enter
             AddHandler nud.Leave, AddressOf Nud_Leave
         Next
         For Each tg In GetAllObjs(GetType(YANTg))
-            AddHandler tg.KeyPress, AddressOf Nud_KeyPress
+            AddHandler tg.KeyDown, AddressOf Ctrl_KeyDown
         Next
-        AddHandler nudH.KeyPress, AddressOf NudHaunch_KeyPress
-        AddHandler nudDeg.KeyPress, AddressOf NudHaunch_KeyPress
+        AddHandler nudH.KeyDown, AddressOf NudHaunch_KeyDown
+        AddHandler nudDeg.KeyDown, AddressOf NudHaunch_KeyDown
         ' option
         DigiFont()
         nudL.ResetText()
@@ -51,6 +53,10 @@ Public Class FrmMain
 
     ' Shown frm
     Private Sub FrmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        Dim waitScrServ = New Service.YANWaitScrService
+        waitScrServ.OnLoader(Me)
+        ChkUpd()
+        waitScrServ.OffLoader()
         FadeIn()
     End Sub
 
@@ -71,18 +77,108 @@ Public Class FrmMain
         End If
     End Sub
 
-    ' Nud press
-    Private Sub Nud_KeyPress(sender As Object, e As KeyPressEventArgs)
-        Select Case Asc(e.KeyChar)
-            Case 72, 104 ' H or h
+    ' Nud keydown
+    Private Sub Ctrl_KeyDown(sender As Object, e As KeyEventArgs)
+        Select Case e.KeyCode
+            Case H
+                e.SuppressKeyPress = True
                 nudH.Select()
-            Case 82, 114 ' R or r
+            Case R
+                e.SuppressKeyPress = True
                 nudDeg.Select()
-            Case 68, 100 ' D or d
+            Case D
+                e.SuppressKeyPress = True
                 nudD.Select()
-            Case 76, 108 ' L or l
+            Case L
+                e.SuppressKeyPress = True
                 nudL.Select()
         End Select
+    End Sub
+
+    ' Nud haunch keydown
+    Private Sub NudHaunch_KeyDown(sender As Object, e As KeyEventArgs)
+        Dim nud = CType(sender, NumericUpDown)
+        Select Case e.KeyCode
+            Case Keys.Enter
+                e.SuppressKeyPress = True
+                Dim h = nudH.Value
+                Dim deg = nudDeg.Value
+                lblHaunchL.Text = $"L = {LHaunch(h, deg)}"
+                lblHaunchW.Text = $"W = {WHaunch(h, deg)}"
+            Case Space
+                e.SuppressKeyPress = True
+                nud.ResetText()
+        End Select
+    End Sub
+
+    ' Nud D keydown
+    Private Sub NudD_KeyDown(sender As Object, e As KeyEventArgs) Handles nudD.KeyDown
+        Select Case e.KeyCode
+            Case Space
+                e.SuppressKeyPress = True
+                nudD.ResetText()
+            Case Keys.Enter
+                e.SuppressKeyPress = True
+                Dim d = nudD.Value
+                Dim l = nudL.Value
+                Dim bending = False
+                lblRsltL.Text = String.Format("{0:n0}", l)
+                lblRsltM.Text = "m = " + String.Format("{0:n1}", MRebar(d, l, bending))
+                lblRsltY.Text = $"￥ = {RebarPr(d, bending)}"
+        End Select
+    End Sub
+
+    ' Nud L keydown
+    Private Sub NudL_KeyDown(sender As Object, e As KeyEventArgs) Handles nudL.KeyDown
+        ' reset lock
+        Select Case e.KeyCode
+            Case Space
+                e.SuppressKeyPress = True
+                ResetL()
+            Case D0 To D9, NumPad0 To NumPad9
+                _lock = False
+        End Select
+        ' check lock
+        If Not _lock Then
+            ' incremental
+            If Not String.IsNullOrWhiteSpace(nudL.Text) And _l < L_MAX Then
+                If e.KeyCode = Keys.Add Then
+                    _bending = True
+                    Dim str = nudL.Text
+                    str = str.Replace(",", String.Empty)
+                    str = str.Replace(".", String.Empty)
+                    Dim l = Integer.Parse(str)
+                    _l += l
+                    If _l > L_MAX Then
+                        LimitL()
+                    Else
+                        e.SuppressKeyPress = True
+                        DispRsltL(l)
+                        nudL.Select(0, nudL.Text.Length)
+
+                    End If
+                End If
+            End If
+            ' process
+            If e.KeyCode = Keys.Enter Then
+                _lock = True
+                Dim l = nudL.Value
+                _l += l
+                If _l > L_MAX Then
+                    LimitL()
+                Else
+                    e.SuppressKeyPress = True
+                    DispRsltL(l)
+                    Dim d = nudD.Value
+                    lblRsltM.Text = "m = " + String.Format("{0:n1}", MRebar(d, _l, _bending))
+                    lblRsltY.Text = $"￥ = {RebarPr(d, _bending)}"
+                    nudL.Value = _l
+                    nudL.Text = String.Format("{0:n0}", _l)
+                    nudL.Select(0, nudL.Text.Length)
+                    SemiResetL()
+                End If
+            End If
+        End If
     End Sub
 
     ' Nud enter
@@ -95,73 +191,6 @@ Public Class FrmMain
     Private Sub Nud_Leave(sender As Object, e As EventArgs)
         Dim nud = CType(sender, NumericUpDown)
         nud.Text = nud.Value.ToString()
-    End Sub
-
-    ' Nud main press
-    Private Sub NudMain_KeyPress(sender As Object, e As KeyPressEventArgs)
-
-    End Sub
-
-    ' Nud haunch press
-    Private Sub NudHaunch_KeyPress(sender As Object, e As KeyPressEventArgs)
-        Dim nud = CType(sender, NumericUpDown)
-        Select Case Asc(e.KeyChar)
-            Case 13 ' enter
-                Dim h = nudH.Value
-                Dim deg = nudDeg.Value
-                lblHaunchL.Text = $"L = {LHaunch(h, deg)}"
-                lblHaunchW.Text = $"W = {WHaunch(h, deg)}"
-            Case 32 ' space
-                nud.ResetText()
-        End Select
-    End Sub
-
-    ' Nud L press
-    Private Sub NudL_KeyPress(sender As Object, e As KeyPressEventArgs) Handles nudL.KeyPress
-        ' reset lock
-        Select Case Asc(e.KeyChar)
-            Case 32 ' space
-                ResetL()
-            Case 48 To 57
-                _lock = False
-        End Select
-        ' check lock
-        If Not _lock Then
-            ' incremental
-            If Not String.IsNullOrWhiteSpace(nudL.Text) And _l < L_MAX Then
-                If Asc(e.KeyChar) = 43 Then ' +
-                    _bending = True
-                    Dim str = nudL.Text
-                    str = str.Replace(",", String.Empty)
-                    str = str.Replace(".", String.Empty)
-                    Dim l = Integer.Parse(str)
-                    _l += l
-                    If _l > L_MAX Then
-                        LimitL()
-                    Else
-                        DispRsltL(l)
-                        nudL.Select(0, nudL.Text.Length)
-
-                    End If
-                End If
-            End If
-            ' process
-            If Asc(e.KeyChar) = 13 Then ' enter
-                _lock = True
-                Dim l = nudL.Value
-                _l += l
-                If _l > L_MAX Then
-                    LimitL()
-                Else
-                    DispRsltL(l)
-                    lblRsltM.Text = String.Format("{0:n1}", MRebar(nudD.Value, _l, _bending))
-                    nudL.Value = _l
-                    nudL.Text = String.Format("{0:n0}", _l)
-                    nudL.Select(0, nudL.Text.Length)
-                    SemiResetL()
-                End If
-            End If
-        End If
     End Sub
 #End Region
 

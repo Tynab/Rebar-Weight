@@ -70,12 +70,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_76F7B102FB99AF83590DB8168DC373EC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D9A87347C89E47E1A1FE5AEAAF68C4C6"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -83,6 +77,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E047C3A798C98F07FFD1DDB2F837DCBF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_76F7B102FB99AF83590DB8168DC373EC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -135,6 +135,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -402,15 +410,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:鉄筋重量"
-        "ProductCode" = "8:{37DEBB17-1F05-452C-8A18-A5D4A17A0486}"
-        "PackageCode" = "8:{A51D6E01-8BF4-434D-82DB-EA7AD3639BB2}"
+        "ProductCode" = "8:{57628961-1FC3-4AD8-8F39-3F6CAA1012A2}"
+        "PackageCode" = "8:{65FA3F66-826D-4252-928F-BE7631E6A5EE}"
         "UpgradeCode" = "8:{A4670A85-FE24-4764-9CB2-A1F5D6124030}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:22.11.11"
+        "ProductVersion" = "8:22.11.3"
         "Manufacturer" = "8:YAN"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -962,7 +970,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D9A87347C89E47E1A1FE5AEAAF68C4C6"
             {
-            "SourcePath" = "8:..\\Rebar Weight\\obj\\Debug\\Rebar Weight.exe"
+            "SourcePath" = "8:..\\Rebar Weight\\obj\\Release\\Rebar Weight.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7551F79140BC470AABD855C2D64AB773"

@@ -5,6 +5,7 @@ Imports System.Math
 Imports System.Net
 Imports System.Runtime.CompilerServices
 Imports System.Windows.Forms.Application
+Imports System.Windows.Forms.DialogResult
 Imports System.Windows.Forms.MessageBox
 Imports System.Windows.Forms.MessageBoxButtons
 Imports System.Windows.Forms.MessageBoxIcon
@@ -30,17 +31,18 @@ Friend Module Common
     ''' <summary>
     ''' Check update.
     ''' </summary>
-    Private Sub ChkUpd()
+    Friend Sub ChkUpd()
         If IsNetAvail() AndAlso Not (New WebClient).DownloadString(My.Resources.link_ver).Contains(My.Resources.app_ver) Then
-            Show($"「{My.Resources.app_true_name}」新しいバージョンが利用可能！", "更新", OK, Information)
-            Run(New FrmUpdate)
+            MsgBox($"「{My.Resources.app_true_name}」新しいバージョンが利用可能！", 262144, Title:="更新")
+            Dim frmUpd = New FrmUpdate
+            frmUpd.ShowDialog()
         End If
     End Sub
 
     ''' <summary>
     ''' Update valid license
     ''' </summary>
-    Friend Sub UpdVldLic()
+    Private Sub UpdVldLic()
         My.Settings.Chk_Key = True
         My.Settings.Save()
     End Sub
@@ -106,11 +108,29 @@ Friend Module Common
 
 #Region "Actor"
     ''' <summary>
+    ''' Check license.
+    ''' </summary>
+    Friend Sub ChkLic()
+        If Not My.Settings.Chk_Key Then
+ChkPt:
+            If InputBox("シリアルを入力", "ライセンスキー") = My.Resources.key_ser Then
+                UpdVldLic()
+            Else
+                If Show("ライセンスが間違っています！", "エラー", RetryCancel, [Error]) = Retry Then
+                    GoTo ChkPt
+                Else
+                    [Exit]()
+                End If
+            End If
+        End If
+    End Sub
+
+    ''' <summary>
     ''' Round end 0-5.
     ''' </summary>
     ''' <param name="num">Number.</param>
     ''' <returns>Rounded number.</returns>
-    Friend Function Rnd5(num As Double)
+    Private Function Rnd5(num As Double)
         Return Ceiling(num / 5) * 5
     End Function
 
@@ -119,7 +139,7 @@ Friend Module Common
     ''' </summary>
     ''' <param name="l">Rebar length.</param>
     ''' <returns>Is raw wood.</returns>
-    Friend Function IsRawWood(l As Integer)
+    Private Function IsRawWood(l As Integer)
         Return ARR_RAW_WOOD.Contains(l)
     End Function
 
@@ -128,7 +148,7 @@ Friend Module Common
     ''' </summary>
     ''' <param name="d">Rebar diameter.</param>
     ''' <returns>Is D lock.</returns>
-    Friend Function IsDLock(d As Integer)
+    Private Function IsDLock(d As Integer)
         Return ARR_D_LOCK.Contains(d)
     End Function
 
@@ -139,7 +159,7 @@ Friend Module Common
     ''' <param name="l">Rebar length (mm).</param>
     ''' <param name="bending">Is bending.</param>
     ''' <returns>Mass (Kg).</returns>
-    Friend Function MRateChg(d As Integer, l As Integer, bending As Boolean)
+    Private Function MRateChg(d As Integer, l As Integer, bending As Boolean)
         Return If(IsDLock(d), If(IsRawWood(l), If(bending, M_BNDG_RATE, 1), M_BNDG_RATE), 1 + d * (5 * PI / 4 - 1) / l)
     End Function
 
@@ -148,7 +168,7 @@ Friend Module Common
     ''' </summary>
     ''' <param name="d">Rebar diameter (mm).</param>
     ''' <returns>Mass (Kg).</returns>
-    Friend Function MSfc(d As Integer)
+    Private Function MSfc(d As Integer)
         Return If(IsDLock(d), M_SFC_D_LOCK(d), (d / 2) ^ 2 * PI * DEN_IRON / 10 ^ 3)
     End Function
 

@@ -79,7 +79,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to 22.11.11.
+        '''  Looks up a localized string similar to 22.11.3.
         '''</summary>
         Friend ReadOnly Property app_ver() As String
             Get

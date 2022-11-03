@@ -4,6 +4,7 @@ Imports System.Environment.SpecialFolder
 Friend Module Constant
     Friend Const M_BNDG_RATE = 1.03
     Friend Const DEN_IRON = 7.874
+    Friend Const L_MAX = 5500
     Friend ReadOnly FILE_SETUP_NAME = $"{My.Resources.app_name} Setup.msi"
     Friend ReadOnly BACK_PATH = GetFolderPath(ApplicationData)
     Friend ReadOnly FRNT_PATH = $"{BACK_PATH}\{My.Resources.co_name}"

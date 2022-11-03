@@ -4,8 +4,16 @@ Imports YANF.Script
 Imports YANF.Script.YANEvent
 Imports System.AppDomain
 Imports System.IO.File
+Imports YANF.Control
 
 Public Class FrmMain
+#Region "Fields"
+    Private _lock As Boolean = False
+    Private _bending As Boolean = False
+    Private _l As Integer = 0
+    Private _sL As String = ""
+#End Region
+
 #Region "Events"
     ' Load frm
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -30,10 +38,15 @@ Public Class FrmMain
             AddHandler nud.Enter, AddressOf Nud_Enter
             AddHandler nud.Leave, AddressOf Nud_Leave
         Next
+        For Each tg In GetAllObjs(GetType(YANTg))
+            AddHandler tg.KeyPress, AddressOf Nud_KeyPress
+        Next
         AddHandler nudH.KeyPress, AddressOf NudHaunch_KeyPress
         AddHandler nudDeg.KeyPress, AddressOf NudHaunch_KeyPress
         ' option
         DigiFont()
+        nudL.ResetText()
+        nudL.Select()
     End Sub
 
     ' Shown frm
@@ -60,7 +73,6 @@ Public Class FrmMain
 
     ' Nud press
     Private Sub Nud_KeyPress(sender As Object, e As KeyPressEventArgs)
-        Dim nud = CType(sender, NumericUpDown)
         Select Case Asc(e.KeyChar)
             Case 72, 104 ' H or h
                 nudH.Select()
@@ -70,8 +82,6 @@ Public Class FrmMain
                 nudD.Select()
             Case 76, 108 ' L or l
                 nudL.Select()
-            Case 32 ' space
-                nud.ResetText()
         End Select
     End Sub
 
@@ -89,16 +99,68 @@ Public Class FrmMain
 
     ' Nud main press
     Private Sub NudMain_KeyPress(sender As Object, e As KeyPressEventArgs)
-        ' TODO
+
     End Sub
 
     ' Nud haunch press
     Private Sub NudHaunch_KeyPress(sender As Object, e As KeyPressEventArgs)
-        If Asc(e.KeyChar) = 13 Then ' enter
-            Dim h = nudH.Value
-            Dim deg = nudDeg.Value
-            lblHaunchL.Text = $"L = {LHaunch(h, deg)}"
-            lblHaunchW.Text = $"W = {WHaunch(h, deg)}"
+        Dim nud = CType(sender, NumericUpDown)
+        Select Case Asc(e.KeyChar)
+            Case 13 ' enter
+                Dim h = nudH.Value
+                Dim deg = nudDeg.Value
+                lblHaunchL.Text = $"L = {LHaunch(h, deg)}"
+                lblHaunchW.Text = $"W = {WHaunch(h, deg)}"
+            Case 32 ' space
+                nud.ResetText()
+        End Select
+    End Sub
+
+    ' Nud L press
+    Private Sub NudL_KeyPress(sender As Object, e As KeyPressEventArgs) Handles nudL.KeyPress
+        ' reset lock
+        Select Case Asc(e.KeyChar)
+            Case 32 ' space
+                ResetL()
+            Case 48 To 57
+                _lock = False
+        End Select
+        ' check lock
+        If Not _lock Then
+            ' incremental
+            If Not String.IsNullOrWhiteSpace(nudL.Text) And _l < L_MAX Then
+                If Asc(e.KeyChar) = 43 Then ' +
+                    _bending = True
+                    Dim str = nudL.Text
+                    str = str.Replace(",", String.Empty)
+                    str = str.Replace(".", String.Empty)
+                    Dim l = Integer.Parse(str)
+                    _l += l
+                    If _l > L_MAX Then
+                        LimitL()
+                    Else
+                        DispRsltL(l)
+                        nudL.Select(0, nudL.Text.Length)
+
+                    End If
+                End If
+            End If
+            ' process
+            If Asc(e.KeyChar) = 13 Then ' enter
+                _lock = True
+                Dim l = nudL.Value
+                _l += l
+                If _l > L_MAX Then
+                    LimitL()
+                Else
+                    DispRsltL(l)
+                    lblRsltM.Text = String.Format("{0:n1}", MRebar(nudD.Value, _l, _bending))
+                    nudL.Value = _l
+                    nudL.Text = String.Format("{0:n0}", _l)
+                    nudL.Select(0, nudL.Text.Length)
+                    SemiResetL()
+                End If
+            End If
         End If
     End Sub
 #End Region
@@ -117,6 +179,38 @@ Public Class FrmMain
         lblRsltY.Font = New Font(font.Families(0), 15)
         lblHaunchL.Font = New Font(font.Families(0), 15)
         lblHaunchW.Font = New Font(font.Families(0), 15)
+    End Sub
+
+    ' Display result L
+    Private Sub DispRsltL(l As Integer)
+        If String.IsNullOrWhiteSpace(_sL) Then
+            _sL += String.Format("{0:n0}", l)
+        Else
+            _sL += " + " + String.Format("{0:n0}", l)
+        End If
+        lblRsltL.Text = _sL
+    End Sub
+
+    ' Semi reset L
+    Private Sub SemiResetL()
+        _bending = False
+        _l = 0
+        _sL = ""
+    End Sub
+
+    ' Reset L
+    Private Sub ResetL()
+        _lock = False
+        SemiResetL()
+        nudL.ResetText()
+    End Sub
+
+    ' Limit L
+    Private Sub LimitL()
+        lblRsltL.Text = "LIMIT"
+        lblRsltM.Text = "-----"
+        lblRsltY.Text = "-----"
+        ResetL()
     End Sub
 #End Region
 End Class

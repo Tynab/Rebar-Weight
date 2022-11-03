@@ -153,6 +153,17 @@ Friend Module Common
     End Function
 
     ''' <summary>
+    ''' Rebar mass.
+    ''' </summary>
+    ''' <param name="d">Rebar diameter (mm).</param>
+    ''' <param name="l">Rebar length (mm).</param>
+    ''' <param name="bending">Is bending.</param>
+    ''' <returns>Mass (Kg).</returns>
+    Friend Function MRebar(d As Integer, l As Integer, bending As Boolean)
+        Return Ceiling(l * MSfc(d) * MRateChg(d, l, bending) / 1000 * 10) / 10
+    End Function
+
+    ''' <summary>
     ''' Rebar price.
     ''' </summary>
     ''' <param name="d">Rebar diameter (mm).</param>

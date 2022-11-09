@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_CD984B9162BA4C0CB5CE80B50E517B83"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D57B9F2737E840238847E93B2203612F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -63,7 +69,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E047C3A798C98F07FFD1DDB2F837DCBF"
+        "MsmKey" = "8:_E1C03F83C844C9B91C072CDEFA057485"
         "OwnerKey" = "8:_D9A87347C89E47E1A1FE5AEAAF68C4C6"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -76,7 +82,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E047C3A798C98F07FFD1DDB2F837DCBF"
+        "OwnerKey" = "8:_E1C03F83C844C9B91C072CDEFA057485"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -142,6 +148,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -303,6 +317,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CD984B9162BA4C0CB5CE80B50E517B83"
+            {
+            "SourcePath" = "8:..\\Rebar Weight\\bin\\Debug\\DS_DIGI.ttf"
+            "TargetName" = "8:DS_DIGI.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_7551F79140BC470AABD855C2D64AB773"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D57B9F2737E840238847E93B2203612F"
             {
             "SourcePath" = "8:..\\res\\BSLaw.bmp"
@@ -323,14 +357,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E047C3A798C98F07FFD1DDB2F837DCBF"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E1C03F83C844C9B91C072CDEFA057485"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:YANF, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E047C3A798C98F07FFD1DDB2F837DCBF"
+                    "_E1C03F83C844C9B91C072CDEFA057485"
                     {
                     "Name" = "8:YANF.dll"
                     "Attributes" = "3:512"
@@ -410,15 +444,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:鉄筋重量"
-        "ProductCode" = "8:{57628961-1FC3-4AD8-8F39-3F6CAA1012A2}"
-        "PackageCode" = "8:{65FA3F66-826D-4252-928F-BE7631E6A5EE}"
+        "ProductCode" = "8:{2384BBB9-87DD-424F-8EEE-DB392CCED70B}"
+        "PackageCode" = "8:{0C7957AC-6AAD-4160-A4CE-C295EDC38AC3}"
         "UpgradeCode" = "8:{A4670A85-FE24-4764-9CB2-A1F5D6124030}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:22.11.3"
+        "ProductVersion" = "8:22.11.9"
         "Manufacturer" = "8:YAN"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -970,7 +1004,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D9A87347C89E47E1A1FE5AEAAF68C4C6"
             {
-            "SourcePath" = "8:..\\Rebar Weight\\obj\\Release\\Rebar Weight.exe"
+            "SourcePath" = "8:..\\Rebar Weight\\obj\\Debug\\Rebar Weight.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7551F79140BC470AABD855C2D64AB773"

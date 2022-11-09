@@ -46,18 +46,21 @@ Public Class FrmMain
         AddHandler nudH.KeyDown, AddressOf NudHaunch_KeyDown
         AddHandler nudDeg.KeyDown, AddressOf NudHaunch_KeyDown
         ' option
-        DigiFont()
-        nudL.ResetText()
-        nudL.Select()
+
     End Sub
 
     ' Shown frm
     Private Sub FrmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
-        Dim waitScrServ = New Service.YANWaitScrService
+        Dim waitScrServ = New Service.YANWaitScrService With {
+            .IsTop = True
+        }
         waitScrServ.OnLoader(Me)
         ChkUpd()
+        Opacity = 1
+        DigiFont()
+        nudL.ResetText()
+        nudL.Select()
         waitScrServ.OffLoader()
-        FadeIn()
     End Sub
 
     ' Closing frm

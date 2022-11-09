@@ -235,6 +235,7 @@ Partial Class FrmMain
         Me.nudDeg.Size = New System.Drawing.Size(100, 20)
         Me.nudDeg.TabIndex = 1
         Me.nudDeg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.tipMain.SetToolTip(Me.nudDeg, "R")
         Me.nudDeg.Value = New Decimal(New Integer() {45, 0, 0, 0})
         '
         'lblDeg
@@ -270,6 +271,7 @@ Partial Class FrmMain
         Me.nudH.TabIndex = 1
         Me.nudH.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.nudH.ThousandsSeparator = True
+        Me.tipMain.SetToolTip(Me.nudH, "H")
         Me.nudH.Value = New Decimal(New Integer() {100, 0, 0, 0})
         '
         'lblH
@@ -319,6 +321,7 @@ Partial Class FrmMain
         Me.nudL.TabIndex = 1
         Me.nudL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.nudL.ThousandsSeparator = True
+        Me.tipMain.SetToolTip(Me.nudL, "L")
         Me.nudL.Value = New Decimal(New Integer() {5500, 0, 0, 0})
         '
         'lblL
@@ -350,6 +353,7 @@ Partial Class FrmMain
         Me.nudD.Size = New System.Drawing.Size(100, 20)
         Me.nudD.TabIndex = 1
         Me.nudD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.tipMain.SetToolTip(Me.nudD, "D")
         Me.nudD.Value = New Decimal(New Integer() {16, 0, 0, 0})
         '
         'lblD

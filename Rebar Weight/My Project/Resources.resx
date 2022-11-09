@@ -119,7 +119,7 @@
   </resheader>
   <data name="app_name" xml:space="preserve">
     <value>Rebar Weight</value>
-    <comment>tến phần mềm</comment>
+    <comment>tên phần mềm</comment>
   </data>
   <data name="app_true_name" xml:space="preserve">
     <value>鉄筋重量</value>
@@ -146,7 +146,7 @@
   </data>
   <data name="link_app" xml:space="preserve">
     <value>https://raw.githubusercontent.com/Tynab/Tynab/main/app/Rebar%20Weight</value>
-    <comment>đường dẫn tải phần mềm trên pastebin</comment>
+    <comment>đường dẫn tải phần mềm trên server</comment>
   </data>
   <data name="link_base" xml:space="preserve">
     <value>https://www.google.com/</value>
@@ -154,6 +154,6 @@
   </data>
   <data name="link_ver" xml:space="preserve">
     <value>https://raw.githubusercontent.com/Tynab/Tynab/main/ver/Rebar%20Weight</value>
-    <comment>đường dẫn kiểm tra phiên bản trên pastebin</comment>
+    <comment>đường dẫn kiểm tra phiên bản trên server</comment>
   </data>
 </root>

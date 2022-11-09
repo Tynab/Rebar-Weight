@@ -137,7 +137,7 @@ Public Class FrmMain
         Select Case e.KeyCode
             Case Space
                 e.SuppressKeyPress = True
-                ResetL()
+                RstL()
             Case D0 To D9, NumPad0 To NumPad9
                 _lock = False
         End Select
@@ -153,7 +153,7 @@ Public Class FrmMain
                     Dim l = Integer.Parse(str)
                     _l += l
                     If _l > L_MAX Then
-                        LimitL()
+                        LmtL()
                     Else
                         e.SuppressKeyPress = True
                         DispRsltL(l)
@@ -168,7 +168,7 @@ Public Class FrmMain
                 Dim l = nudL.Value
                 _l += l
                 If _l > L_MAX Then
-                    LimitL()
+                    LmtL()
                 Else
                     e.SuppressKeyPress = True
                     DispRsltL(l)
@@ -178,7 +178,7 @@ Public Class FrmMain
                     nudL.Value = _l
                     nudL.Text = String.Format("{0:n0}", _l)
                     nudL.Select(0, nudL.Text.Length)
-                    SemiResetL()
+                    SemiRstL()
                 End If
             End If
         End If
@@ -224,25 +224,25 @@ Public Class FrmMain
     End Sub
 
     ' Semi reset L
-    Private Sub SemiResetL()
+    Private Sub SemiRstL()
         _bending = False
         _l = 0
         _sL = ""
     End Sub
 
     ' Reset L
-    Private Sub ResetL()
+    Private Sub RstL()
         _lock = False
-        SemiResetL()
+        SemiRstL()
         nudL.ResetText()
     End Sub
 
     ' Limit L
-    Private Sub LimitL()
+    Private Sub LmtL()
         lblRsltL.Text = "LIMIT"
         lblRsltM.Text = "-----"
         lblRsltY.Text = "-----"
-        ResetL()
+        RstL()
     End Sub
 #End Region
 End Class

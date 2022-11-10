@@ -127,7 +127,7 @@ Public Class FrmMain
                 Dim bending = False
                 lblRsltL.Text = String.Format("{0:n0}", l)
                 lblRsltM.Text = "m = " + String.Format("{0:n1}", MRebar(d, l, bending))
-                lblRsltY.Text = $"￥ = {RebarPr(d, bending)}"
+                lblRsltY.Text = $"￥ = {RebarPr(d, l, bending)}"
         End Select
     End Sub
 
@@ -174,7 +174,7 @@ Public Class FrmMain
                     DispRsltL(l)
                     Dim d = nudD.Value
                     lblRsltM.Text = "m = " + String.Format("{0:n1}", MRebar(d, _l, _bending))
-                    lblRsltY.Text = $"￥ = {RebarPr(d, _bending)}"
+                    lblRsltY.Text = $"￥ = {RebarPr(d, _l, _bending)}"
                     nudL.Value = _l
                     nudL.Text = String.Format("{0:n0}", _l)
                     nudL.Select(0, nudL.Text.Length)

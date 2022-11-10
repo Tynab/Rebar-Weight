@@ -187,10 +187,11 @@ ChkPt:
     ''' Rebar price.
     ''' </summary>
     ''' <param name="d">Rebar diameter (mm).</param>
+    ''' <param name="l">Rebar length.</param>
     ''' <param name="bending">Is bending.</param>
     ''' <returns>Price (Yen).</returns>
-    Friend Function RebarPr(d As Integer, bending As Boolean)
-        If bending Then
+    Friend Function RebarPr(d As Integer, l As Integer, bending As Boolean)
+        If bending Or Not IsRawWood(l) Then
             Return My.Settings.Pr_Proc
         Else
             Select Case d

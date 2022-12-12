@@ -40,7 +40,7 @@ Friend Module Common
     End Sub
 
     ''' <summary>
-    ''' Update valid license
+    ''' Update valid license.
     ''' </summary>
     Private Sub UpdVldLic()
         My.Settings.Chk_Key = True

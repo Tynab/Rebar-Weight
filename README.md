@@ -9,15 +9,20 @@ Tool help 西山 team of エマール group calculate 重量 of 鉄筋 from 文�
 ## CODE DEMO
 ```vb
 ''' <summary>
-''' Check update.
+''' Check internet connection.
 ''' </summary>
-Friend Sub ChkUpd()
-    If IsNetAvail() AndAlso Not (New WebClient).DownloadString(My.Resources.link_ver).Contains(My.Resources.app_ver) Then
-        MsgBox($"「{My.Resources.app_true_name}」新しいバージョンが利用可能！", 262144, Title:="更新")
-        Dim frmUpd = New FrmUpdate
-        frmUpd.ShowDialog()
-    End If
-End Sub
+''' <returns>Connection state.</returns>
+Private Function IsNetAvail()
+    Dim objResp As WebResponse
+    Try
+        objResp = WebRequest.Create(New Uri(My.Resources.link_base)).GetResponse
+        objResp.Close()
+        objResp = Nothing
+        Return True
+    Catch ex As Exception
+        Return False
+    End Try
+End Function
 ```
 
 ### PACKAGES
